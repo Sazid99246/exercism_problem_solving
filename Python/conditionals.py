@@ -34,7 +34,7 @@ def reactor_efficiency(voltage, current, theoretical_max_power):
     4. black ->  less than 30% efficient.
 
     The percentage value is calculated as
-    (generated power/ theoretical max power)*100
+    (generated power / theoretical max power) * 100
     where generated power = voltage * current
     """
 
@@ -43,12 +43,11 @@ def reactor_efficiency(voltage, current, theoretical_max_power):
 
     if result >= 80:
         return "green"
-    elif result >= 60:
+    if result >= 60:
         return "orange"
-    elif result >= 30:
+    if result >= 30:
         return "red"
-    else:
-        return "black"
+    return "black"
 
 
 def fail_safe(temperature, neutrons_produced_per_second, threshold):
@@ -59,16 +58,17 @@ def fail_safe(temperature, neutrons_produced_per_second, threshold):
     :param threshold: int or float - threshold for category.
     :return: str - one of ('LOW', 'NORMAL', 'DANGER').
 
-    1. 'LOW' -> `temperature * neutrons per second` < 90% of `threshold`
-    2. 'NORMAL' -> `temperature * neutrons per second` +/- 10% of `threshold`
-    3. 'DANGER' -> `temperature * neutrons per second` is not in the above-stated ranges
+    1. "LOW" -> `temperature * neutrons per second` < 90% of `threshold`
+    2. "NORMAL" -> `temperature * neutrons per second` +/- 10% of `threshold`
+    3. "DANGER" -> `temperature * neutrons per second` is not in the above-stated ranges
     """
 
     criticality = temperature * neutrons_produced_per_second
     low_threshold = 0.9 * threshold
     high_threshold = 1.1 * threshold
-    if temperature * neutrons_produced_per_second < low_threshold:
-        return 'LOW'
+
+    if criticality < low_threshold:
+        return "LOW"
     if low_threshold <= criticality <= high_threshold:
-        return 'NORMAL'
-    return 'DANGER'
+        return "NORMAL"
+    return "DANGER"
