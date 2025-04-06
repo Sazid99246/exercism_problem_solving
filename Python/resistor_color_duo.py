@@ -8,10 +8,3 @@ def color_code(color):
 
 def value(colors):
     return color_code(colors[0]) * 10 + color_code(colors[1])
-
-
-if __name__ == "__main__":
-    print(value(["white", "red"]))
-    print(value(["orange", "orange"]))
-    print(value(["green", "brown", "orange"]))
-    print(value(["black", "brown"]))
