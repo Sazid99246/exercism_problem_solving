@@ -261,14 +261,14 @@ export function swapNamedPile(piles) {
  * @returns {number} number of cards of a single type there are in the deck
  */
 export function cardTypeCheck(stack, card) {
-  // 🚨 Use .forEach
-  let count = 0;
-  stack.forEach(c => {
-    if (c == card) {
-        count++;
-    }
-  });
-  return count;
+    // 🚨 Use .forEach
+    let count = 0;
+    stack.forEach(c => {
+        if (c == card) {
+            count++;
+        }
+    });
+    return count;
 }
 
 /**
@@ -279,15 +279,106 @@ export function cardTypeCheck(stack, card) {
  * @returns {number} number of cards that are either odd or even (depending on `type`)
  */
 export function determineOddEvenCards(stack, type) {
-  // 🚨 Use a `for...of` loop
-  const rest = type ? 0 : 1
+    // 🚨 Use a `for...of` loop
+    const rest = type ? 0 : 1
 
-  let count = 0;
-  for (const card of stack) {
-    if (card % 2 === rest) {
-      count += 1
+    let count = 0;
+    for (const card of stack) {
+        if (card % 2 === rest) {
+            count += 1
+        }
     }
-  }
-  return count
+    return count
 
+}
+
+/**
+ * Double every card in the deck.
+ *
+ * @param {number[]} deck
+ *
+ * @returns {number[]} deck with every card doubled
+ */
+export function seeingDouble(deck) {
+    return deck.map(card => card * 2);
+}
+
+/**
+ *  Creates triplicates of every 3 found in the deck.
+ *
+ * @param {number[]} deck
+ *
+ * @returns {number[]} deck with triplicate 3s
+ */
+export function threeOfEachThree(deck) {
+    return deck.reduce((result, card) => {
+        if (card == 3)
+            result.push(3, 3, 3);
+        else
+            result.push(card);
+        return result
+    }, []);
+}
+
+/**
+ * Extracts the middle two cards from a deck.
+ * Assumes a deck is always 10 cards.
+ *
+ * @param {number[]} deck of 10 cards
+ *
+ * @returns {number[]} deck with only two middle cards
+ */
+export function middleTwo(deck) {
+    const startIndex = deck.length / 2 - 1;
+    const endIndex = startIndex + 2;
+    return deck.slice(startIndex, endIndex);
+}
+
+/**
+ * Moves the outside two cards to the middle.
+ *
+ * @param {number[]} deck with even number of cards
+ *
+ * @returns {number[]} transformed deck
+ */
+
+export function sandwichTrick(deck) {
+    const mid = deck.length / 2;
+    deck.splice(mid, 0, deck.pop());
+    deck.splice(mid, 0, deck.shift());
+    return deck;
+}
+
+/**
+ * Removes every card from the deck except 2s.
+ *
+ * @param {number[]} deck
+ *
+ * @returns {number[]} deck with only 2s
+ */
+export function twoIsSpecial(deck) {
+    return deck.filter(card => card === 2)
+}
+
+/**
+ * Returns a perfectly order deck from lowest to highest.
+ *
+ * @param {number[]} deck shuffled deck
+ *
+ * @returns {number[]} ordered deck
+ */
+export function perfectlyOrdered(deck) {
+    deck.sort((a, b) => a - b);
+    return deck;
+}
+
+/**
+ * Reorders the deck so that the top card ends up at the bottom.
+ *
+ * @param {number[]} deck
+ *
+ * @returns {number[]} reordered deck
+ */
+export function reorder(deck) {
+    return deck.reverse();
 }
